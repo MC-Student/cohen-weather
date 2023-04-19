@@ -1,4 +1,9 @@
-package cohen.weather.json;
+package cohen.weather.jsonForCurrent;
+
+import cohen.weather.jsonForAll.Clouds;
+import cohen.weather.jsonForAll.Coord;
+import cohen.weather.jsonForAll.Weather;
+import cohen.weather.jsonForAll.Wind;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package cohen.weather;
 
-import cohen.weather.json.CurrentWeather;
-import io.reactivex.rxjava3.core.Observable;
+import cohen.weather.jsonForCurrent.CurrentWeather;
+import cohen.weather.jsonForFiveDay.FiveDayForecast;
 import org.junit.jupiter.api.Test;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class WeatherServiceTest
 {
-    @GET("data/2.5/weather?q=chicago&appid=da9ab98f611490083a79456bd71f4370&units=imperial")
+    @GET("data/2.5/weather?appid=da9ab98f611490083a79456bd71f4370&units=imperial")
 
     @Test
     public void getCurrentWeather()
@@ -25,8 +25,24 @@ public class WeatherServiceTest
                 .build();
         WeatherService service = retrofit.create(WeatherService.class);
         //when
-        CurrentWeather weather = service.getCurrentWeather().blockingFirst();
+        CurrentWeather weather = service.getCurrentWeather("chicago").blockingFirst();
         //then
         assertNotNull(weather);
+    }
+
+    @Test
+    public void getFiveDayForecast()
+    {
+        //given
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build();
+        WeatherService service = retrofit.create(WeatherService.class);
+        //when
+        FiveDayForecast fiveDayForecast = service.getFiveDayForecast("chicago").blockingFirst();
+        //then
+        assertNotNull(fiveDayForecast);
     }
 }

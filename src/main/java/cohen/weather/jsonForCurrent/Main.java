@@ -1,6 +1,4 @@
-package cohen.weather.json;
-
-import com.google.gson.annotations.SerializedName;
+package cohen.weather.jsonForCurrent;
 
 public class Main
 {

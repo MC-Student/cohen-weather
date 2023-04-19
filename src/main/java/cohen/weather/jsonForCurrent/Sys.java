@@ -1,4 +1,4 @@
-package cohen.weather.json;
+package cohen.weather.jsonForCurrent;
 
 public class Sys
 {
