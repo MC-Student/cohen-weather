@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class WeatherServiceTest
 {
-    @GET("data/2.5/weather?appid=da9ab98f611490083a79456bd71f4370&units=imperial")
-
     @Test
     public void getCurrentWeather()
     {
