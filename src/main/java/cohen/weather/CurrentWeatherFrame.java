@@ -22,7 +22,7 @@ public class CurrentWeatherFrame extends JFrame
 
     private WeatherService service = retrofit.create(WeatherService.class);
 
-    CurrentWeatherView currentWeatherView;
+    private CurrentWeatherView currentWeatherView;
 
     public CurrentWeatherFrame()
     {
@@ -39,26 +39,7 @@ public class CurrentWeatherFrame extends JFrame
         JTextField city = new JTextField();
         city.setText("New York");
         city.setSize(30,45);
-        JButton toGraph = new JButton("Graph It");
-        toGraph.setSize(25,45);
-
-        JPanel graphPanel = new JPanel();
-        graphPanel.setLayout(new BorderLayout());
-//        graphPanel.add(currentWeatherView, BorderLayout.CENTER);
-
-        JPanel userInput = new JPanel(new BorderLayout());
-        userInput.add(city, BorderLayout.CENTER);
-        userInput.add(toGraph, BorderLayout.EAST);
-
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(userInput, BorderLayout.PAGE_START);
-        mainPanel.add(currentWeatherView, BorderLayout.CENTER);
-
-        toGraph.addActionListener(e -> graphIt(city));
-
-        setFocusable(true);
-
-        addKeyListener(new KeyListener()
+        city.addKeyListener(new KeyListener()
         {
             @Override
             public void keyTyped(KeyEvent e)
@@ -81,6 +62,24 @@ public class CurrentWeatherFrame extends JFrame
             {
             }
         });
+        city.setFocusable(true);
+        city.requestFocus();
+
+        JButton toGraph = new JButton("Graph It");
+        toGraph.setSize(25,45);
+
+        JPanel graphPanel = new JPanel();
+        graphPanel.setLayout(new BorderLayout());
+
+        JPanel userInput = new JPanel(new BorderLayout());
+        userInput.add(city, BorderLayout.CENTER);
+        userInput.add(toGraph, BorderLayout.EAST);
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(userInput, BorderLayout.PAGE_START);
+        mainPanel.add(currentWeatherView, BorderLayout.CENTER);
+
+        toGraph.addActionListener(e -> graphIt(city));
 
         setContentPane(mainPanel);
 
@@ -93,5 +92,6 @@ public class CurrentWeatherFrame extends JFrame
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(currentWeatherView::setForecastWeather, Throwable::printStackTrace);
+        city.requestFocus();
     }
 }
