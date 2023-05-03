@@ -2,13 +2,12 @@ package cohen.weather;
 
 import cohen.weather.jsonForFiveDay.FiveDayForecast;
 import cohen.weather.jsonForFiveDay.InfoForFiveDay;
-import io.reactivex.rxjava3.core.Observable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class CurrentWeatherView extends JComponent
+public class ForecastView extends JComponent
 {
     public FiveDayForecast fiveDayForecast;
 
@@ -50,5 +49,4 @@ public class CurrentWeatherView extends JComponent
         this.fiveDayForecast = fiveDayForecast;
         repaint();
     }
-
 }

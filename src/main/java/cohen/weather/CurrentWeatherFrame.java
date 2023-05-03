@@ -22,7 +22,9 @@ public class CurrentWeatherFrame extends JFrame
 
     private WeatherService service = retrofit.create(WeatherService.class);
 
-    private CurrentWeatherView currentWeatherView;
+    private ForecastView forecastView;
+
+    private WeatherForecastController controller;
 
     public CurrentWeatherFrame()
     {
@@ -30,7 +32,9 @@ public class CurrentWeatherFrame extends JFrame
 
         Observable<FiveDayForecast> fiveDayForecast = service.getFiveDayForecast(cityName);
 
-        currentWeatherView = new CurrentWeatherView();
+        forecastView = new ForecastView();
+
+        controller = new WeatherForecastController(forecastView, service);
 
         setSize(800, 600);
         setTitle("Current Weather");
@@ -48,7 +52,8 @@ public class CurrentWeatherFrame extends JFrame
 
                 if (character == KeyEvent.VK_ENTER)
                 {
-                    graphIt(city);
+                    controller.updateWeather(city.getText());
+                    requestFocus();
                 }
             }
 
@@ -77,21 +82,11 @@ public class CurrentWeatherFrame extends JFrame
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(userInput, BorderLayout.PAGE_START);
-        mainPanel.add(currentWeatherView, BorderLayout.CENTER);
+        mainPanel.add(forecastView, BorderLayout.CENTER);
 
-        toGraph.addActionListener(e -> graphIt(city));
+        toGraph.addActionListener(e -> controller.updateWeather(city.getText()));
+        requestFocus();
 
         setContentPane(mainPanel);
-
-
-    }
-
-    private void graphIt(JTextField city)
-    {
-        service.getFiveDayForecast(city.getText())
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.newThread())
-                .subscribe(currentWeatherView::setForecastWeather, Throwable::printStackTrace);
-        city.requestFocus();
     }
 }
