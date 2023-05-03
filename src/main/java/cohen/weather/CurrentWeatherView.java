@@ -27,7 +27,7 @@ public class CurrentWeatherView extends JComponent
 
         int time = 0;
 
-        if(fiveDayForecast != null)
+        if (fiveDayForecast != null)
         {
             List<InfoForFiveDay> info = fiveDayForecast.getList();
 

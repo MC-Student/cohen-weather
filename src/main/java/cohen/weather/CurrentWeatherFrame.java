@@ -66,7 +66,7 @@ public class CurrentWeatherFrame extends JFrame
         city.requestFocus();
 
         JButton toGraph = new JButton("Graph It");
-        toGraph.setSize(25,45);
+        toGraph.setSize(25, 45);
 
         JPanel graphPanel = new JPanel();
         graphPanel.setLayout(new BorderLayout());
