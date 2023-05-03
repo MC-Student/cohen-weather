@@ -27,18 +27,21 @@ public class CurrentWeatherView extends JComponent
 
         int time = 0;
 
-        List<InfoForFiveDay> info = fiveDayForecast.getList();
-
-        for (InfoForFiveDay threeHours: info)
+        if(fiveDayForecast != null)
         {
-            x1 = x2;
-            y1 = y2;
-            x2 = time;
-            y2 = (int)(double)threeHours.getMain().getTemp();
+            List<InfoForFiveDay> info = fiveDayForecast.getList();
 
-            g.drawLine(x1,-y1*5,x2,-y2*5);
+            for (InfoForFiveDay threeHours : info)
+            {
+                x1 = x2;
+                y1 = y2;
+                x2 = time;
+                y2 = (int) (double) threeHours.getMain().getTemp();
 
-            time+=20;
+                g.drawLine(x1, -y1 * 5, x2, -y2 * 5);
+
+                time += 20;
+            }
         }
     }
 

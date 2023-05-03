@@ -2,6 +2,7 @@ package cohen.weather;
 
 import cohen.weather.jsonForFiveDay.FiveDayForecast;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,7 +20,7 @@ public class CurrentWeatherFrame extends JFrame
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build();
 
-    WeatherService service = retrofit.create(WeatherService.class);
+    private WeatherService service = retrofit.create(WeatherService.class);
 
     CurrentWeatherView currentWeatherView;
 
@@ -82,11 +83,15 @@ public class CurrentWeatherFrame extends JFrame
         });
 
         setContentPane(mainPanel);
+
+
     }
 
     private void graphIt(JTextField city)
     {
-        FiveDayForecast fiveDayForecast = service.getFiveDayForecast(city.getText()).blockingFirst();
-        currentWeatherView.setForecastWeather(fiveDayForecast);
+        service.getFiveDayForecast(city.getText())
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(currentWeatherView::setForecastWeather, Throwable::printStackTrace);
     }
 }
