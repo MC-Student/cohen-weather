@@ -30,8 +30,6 @@ public class CurrentWeatherFrame extends JFrame
     {
         String cityName = "New York";
 
-        Observable<FiveDayForecast> fiveDayForecast = service.getFiveDayForecast(cityName);
-
         forecastView = new ForecastView();
 
         controller = new WeatherForecastController(forecastView, service);
