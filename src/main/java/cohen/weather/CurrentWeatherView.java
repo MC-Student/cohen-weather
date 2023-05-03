@@ -2,6 +2,7 @@ package cohen.weather;
 
 import cohen.weather.jsonForFiveDay.FiveDayForecast;
 import cohen.weather.jsonForFiveDay.InfoForFiveDay;
+import io.reactivex.rxjava3.core.Observable;
 
 import javax.swing.*;
 import java.awt.*;

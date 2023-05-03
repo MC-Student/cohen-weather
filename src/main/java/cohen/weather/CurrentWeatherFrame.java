@@ -1,6 +1,7 @@
 package cohen.weather;
 
 import cohen.weather.jsonForFiveDay.FiveDayForecast;
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -12,8 +13,6 @@ import java.awt.event.KeyListener;
 
 public class CurrentWeatherFrame extends JFrame
 {
-    private FiveDayForecast fiveDayForecast;
-
     private final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -22,13 +21,13 @@ public class CurrentWeatherFrame extends JFrame
 
     WeatherService service = retrofit.create(WeatherService.class);
 
-    String cityName = "New York";
-
     CurrentWeatherView currentWeatherView;
 
     public CurrentWeatherFrame()
     {
-        fiveDayForecast = service.getFiveDayForecast(cityName).blockingFirst();
+        String cityName = "New York";
+
+        Observable<FiveDayForecast> fiveDayForecast = service.getFiveDayForecast(cityName);
 
         currentWeatherView = new CurrentWeatherView();
 
@@ -44,7 +43,7 @@ public class CurrentWeatherFrame extends JFrame
 
         JPanel graphPanel = new JPanel();
         graphPanel.setLayout(new BorderLayout());
-        graphPanel.add(currentWeatherView, BorderLayout.CENTER);
+//        graphPanel.add(currentWeatherView, BorderLayout.CENTER);
 
         JPanel userInput = new JPanel(new BorderLayout());
         userInput.add(city, BorderLayout.CENTER);
@@ -52,12 +51,11 @@ public class CurrentWeatherFrame extends JFrame
 
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(userInput, BorderLayout.PAGE_START);
-        mainPanel.add(graphPanel, BorderLayout.CENTER);
+        mainPanel.add(currentWeatherView, BorderLayout.CENTER);
 
         toGraph.addActionListener(e -> graphIt(city));
 
         setFocusable(true);
-        requestFocus();
 
         addKeyListener(new KeyListener()
         {
