@@ -18,4 +18,9 @@ public class InfoForFiveDay
     private Long visibility;
     private List<Weather> weather;
     private Wind wind;
+
+    public Main getMain()
+    {
+        return main;
+    }
 }
