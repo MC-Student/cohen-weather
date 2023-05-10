@@ -1,12 +1,6 @@
 package cohen.weather;
 
-import cohen.weather.jsonForFiveDay.FiveDayForecast;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-
+import javax.inject.Inject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -14,25 +8,15 @@ import java.awt.event.KeyListener;
 
 public class CurrentWeatherFrame extends JFrame
 {
-    private final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build();
+    private final ForecastView forecastView;
 
-    private WeatherService service = retrofit.create(WeatherService.class);
+    private final WeatherForecastController controller;
 
-    private ForecastView forecastView;
-
-    private WeatherForecastController controller;
-
-    public CurrentWeatherFrame()
+    @Inject
+    public CurrentWeatherFrame(ForecastView forecastView, WeatherForecastController controller)
     {
-        String cityName = "New York";
-
-        forecastView = new ForecastView();
-
-        controller = new WeatherForecastController(forecastView, service);
+        this.forecastView = forecastView;
+        this.controller = controller;
 
         setSize(800, 600);
         setTitle("Current Weather");
@@ -40,7 +24,7 @@ public class CurrentWeatherFrame extends JFrame
 
         JTextField city = new JTextField();
         city.setText("New York");
-        city.setSize(30,45);
+        city.setSize(30, 45);
         city.addKeyListener(new KeyListener()
         {
             @Override

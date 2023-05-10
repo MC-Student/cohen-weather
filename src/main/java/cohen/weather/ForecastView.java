@@ -3,13 +3,21 @@ package cohen.weather;
 import cohen.weather.jsonForFiveDay.FiveDayForecast;
 import cohen.weather.jsonForFiveDay.InfoForFiveDay;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+@Singleton
 public class ForecastView extends JComponent
 {
-    public FiveDayForecast fiveDayForecast;
+    @Inject
+    public ForecastView()
+    {
+    }
+
+    private FiveDayForecast fiveDayForecast;
 
     @Override
     protected void paintComponent(Graphics g)
