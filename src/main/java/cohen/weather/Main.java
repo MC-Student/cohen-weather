@@ -10,7 +10,7 @@ public class Main
         WeatherForecastComponent component = DaggerWeatherForecastComponent
                 .builder()
                 .build();
-        CurrentWeatherFrame frame = component.providesCurrentWeatherFrame();
+        ForecastFrame frame = component.providesForecastFrame();
         frame.setVisible(true);
     }
 }

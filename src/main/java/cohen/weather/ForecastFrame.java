@@ -6,14 +6,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class CurrentWeatherFrame extends JFrame
+public class ForecastFrame extends JFrame
 {
     private final ForecastView forecastView;
 
     private final WeatherForecastController controller;
 
     @Inject
-    public CurrentWeatherFrame(ForecastView forecastView, WeatherForecastController controller)
+    public ForecastFrame(ForecastView forecastView, WeatherForecastController controller)
     {
         this.forecastView = forecastView;
         this.controller = controller;
@@ -67,7 +67,6 @@ public class CurrentWeatherFrame extends JFrame
         mainPanel.add(forecastView, BorderLayout.CENTER);
 
         toGraph.addActionListener(e -> controller.updateWeather(city.getText()));
-        requestFocus();
 
         setContentPane(mainPanel);
     }
