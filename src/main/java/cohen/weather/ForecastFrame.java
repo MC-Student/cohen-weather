@@ -60,8 +60,8 @@ public class ForecastFrame extends JFrame
         city.setFocusable(true);
         city.requestFocus();
 
-        JButton bToGraph = new JButton("Graph It");
-        bToGraph.setSize(25, 45);
+        JButton graphButton = new JButton("Graph It");
+        graphButton.setSize(25, 45);
 
         JPanel weatherPanel = new JPanel();
         weatherPanel.add(imageLabel);
@@ -69,7 +69,7 @@ public class ForecastFrame extends JFrame
 
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(city, BorderLayout.CENTER);
-        topPanel.add(bToGraph, BorderLayout.EAST);
+        topPanel.add(graphButton, BorderLayout.EAST);
 
         JPanel weatherLabels = new JPanel();
         weatherLabels.add(imageLabel);
@@ -80,7 +80,7 @@ public class ForecastFrame extends JFrame
         mainPanel.add(topPanel, BorderLayout.PAGE_START);
         mainPanel.add(forecastView, BorderLayout.CENTER);
 
-        bToGraph.addActionListener(e ->
+        graphButton.addActionListener(e ->
         {
             controller.updateWeather(city.getText());
             currentWeatherController.updateWeather(city.getText());

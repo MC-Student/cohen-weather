@@ -23,7 +23,7 @@ public class CurrentWeather
     private List<Weather> weather;
     private Wind wind;
 
-    public Main getMain ()
+    public Main getMain()
     {
         return main;
     }
