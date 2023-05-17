@@ -63,10 +63,6 @@ public class ForecastFrame extends JFrame
         JButton graphButton = new JButton("Graph It");
         graphButton.setSize(25, 45);
 
-        JPanel weatherPanel = new JPanel();
-        weatherPanel.add(imageLabel);
-        weatherPanel.add(degreesLabel);
-
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.add(city, BorderLayout.CENTER);
         topPanel.add(graphButton, BorderLayout.EAST);
