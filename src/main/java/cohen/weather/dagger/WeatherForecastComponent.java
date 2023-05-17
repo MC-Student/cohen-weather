@@ -2,7 +2,6 @@ package cohen.weather.dagger;
 
 import cohen.weather.ForecastFrame;
 import dagger.Component;
-
 import javax.inject.Singleton;
 
 @Singleton

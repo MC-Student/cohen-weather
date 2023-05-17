@@ -6,4 +6,14 @@ public class Weather
     private String icon;
     private Long id;
     private String main;
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public String getIcon()
+    {
+        return icon;
+    }
 }

@@ -1,6 +1,7 @@
 package cohen.weather;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,11 +13,18 @@ public class ForecastFrame extends JFrame
 
     private final WeatherForecastController controller;
 
+    private final CurrentWeatherController currentWeatherController;
+
     @Inject
-    public ForecastFrame(ForecastView forecastView, WeatherForecastController controller)
+    public ForecastFrame(ForecastView forecastView,
+                         WeatherForecastController controller,
+                         CurrentWeatherController currentWeatherController,
+                         @Named("imageLabel") JLabel imageLabel,
+                         @Named("degreesLabel") JLabel degreesLabel)
     {
         this.forecastView = forecastView;
         this.controller = controller;
+        this.currentWeatherController = currentWeatherController;
 
         setSize(800, 600);
         setTitle("Current Weather");
@@ -52,21 +60,34 @@ public class ForecastFrame extends JFrame
         city.setFocusable(true);
         city.requestFocus();
 
-        JButton toGraph = new JButton("Graph It");
-        toGraph.setSize(25, 45);
+        JButton bToGraph = new JButton("Graph It");
+        bToGraph.setSize(25, 45);
 
-        JPanel graphPanel = new JPanel();
-        graphPanel.setLayout(new BorderLayout());
+        JPanel weatherPanel = new JPanel();
+        weatherPanel.add(imageLabel);
+        weatherPanel.add(degreesLabel);
 
-        JPanel userInput = new JPanel(new BorderLayout());
-        userInput.add(city, BorderLayout.CENTER);
-        userInput.add(toGraph, BorderLayout.EAST);
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(city, BorderLayout.CENTER);
+        topPanel.add(bToGraph, BorderLayout.EAST);
+
+        JPanel weatherLabels = new JPanel();
+        weatherLabels.add(imageLabel);
+        weatherLabels.add(degreesLabel);
+        topPanel.add(weatherLabels, BorderLayout.SOUTH);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(userInput, BorderLayout.PAGE_START);
+        mainPanel.add(topPanel, BorderLayout.PAGE_START);
         mainPanel.add(forecastView, BorderLayout.CENTER);
 
-        toGraph.addActionListener(e -> controller.updateWeather(city.getText()));
+        bToGraph.addActionListener(e ->
+        {
+            controller.updateWeather(city.getText());
+            currentWeatherController.updateWeather(city.getText());
+        });
+
+        controller.updateWeather(city.getText());
+        currentWeatherController.updateWeather(city.getText());
 
         setContentPane(mainPanel);
     }

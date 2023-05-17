@@ -8,4 +8,9 @@ public class Main
     private Double temp;
     private Double temp_max;
     private Double temp_min;
+
+    public Double getTemp()
+    {
+        return temp;
+    }
 }

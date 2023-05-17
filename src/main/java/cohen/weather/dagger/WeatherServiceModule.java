@@ -7,6 +7,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+import javax.swing.*;
+
 @Module
 public class WeatherServiceModule
 {
@@ -20,5 +24,21 @@ public class WeatherServiceModule
                 .build();
         WeatherService service = retrofit.create(WeatherService.class);
         return service;
+    }
+
+    @Provides
+    @Named("degreesLabel")
+    @Singleton
+    public JLabel providesDegreesLabel()
+    {
+        return new JLabel();
+    }
+
+    @Provides
+    @Named("imageLabel")
+    @Singleton
+    public JLabel providesImageLabel()
+    {
+        return new JLabel();
     }
 }
