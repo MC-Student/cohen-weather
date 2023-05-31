@@ -22,4 +22,14 @@ public class CurrentWeather
     private Long visibility;
     private List<Weather> weather;
     private Wind wind;
+
+    public Main getMain()
+    {
+        return main;
+    }
+
+    public List<Weather> getWeather()
+    {
+        return weather;
+    }
 }
